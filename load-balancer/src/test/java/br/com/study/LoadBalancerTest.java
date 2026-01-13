@@ -3,8 +3,8 @@ package br.com.study;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
@@ -28,7 +28,7 @@ class LoadBalancerTest {
 
         LoadBalancingAlgorithm algorithm = null;
 
-        assertThatThrownBy(() -> new LoadBalancer(new ArrayList<ServerNode>(), algorithm))
+        assertThatThrownBy(() -> new LoadBalancer(new HashSet<ServerNode>(), algorithm))
                 .isInstanceOf(NullPointerException.class)
                 .hasMessage("The load balancing algorithm cannot be null");
     }
@@ -38,7 +38,7 @@ class LoadBalancerTest {
     void shouldDelegateServerSelectionToAlgorithm() {
 
         // arrange
-        List<ServerNode> nodes = List.of(new ServerNode("A"));
+        Set<ServerNode> nodes = Set.of(new ServerNode("A"));
 
         LoadBalancingAlgorithm algorithm = mock(LoadBalancingAlgorithm.class);
         ServerNode server = mock(ServerNode.class);
